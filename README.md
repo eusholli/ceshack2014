@@ -32,7 +32,14 @@ To learn how to read the data and control the devices yourselves please see here
 
 The data is also streamed live into http://m2x.att.com
 
-* All device feeds will be listed here
+* ceshack-pi01 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 21fc5d75c9fe714e3c79d22220c4beae"
+* ceshack-pi02 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: b9b1b404cc33f5352bfc77292764d5f9"
+* ceshack-pi03 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 1c471b31791f583eafb72f04bc60c184"
+* ceshack-pi04 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: fa18f4dca84dff4d3078c6fb4943e2fa"
+* ceshack-pi05 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: a7a85c1f687706647cb9d20406ae7578"
+* ceshack-pi06 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 948df13f64cdd58ad02b409f52628fd9"
+* ceshack-pi07 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: fb0524aab9728637873e1356f3e6040d"
+
 
 # $10,000 Prize
 
