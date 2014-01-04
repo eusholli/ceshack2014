@@ -16,14 +16,6 @@ These kits are broadcasting in realtime the following sensor data:
 
 On each device is also an iBeacon
 
-##Watch This Space!
-
-Coming soon...
-
-Coming online during the show is a door sensor that will detect height of people entering and take a photo.  Also request a picture from the door sensor
-
-A bank of 10 Philips Hue lights that you can control through the same interfaces as above
-
 See this data presented live here - http://socketio.ceshack2014.att.io:5000/meter.html#
 
 If you select one of the devices then you can take a picture and control the attached fan
@@ -48,6 +40,14 @@ To the team that **uses the data the most creatively** to create an experience t
 Combine with other kits, available resources - no limits!!
 
 Welcome to the Internet of NOW! and good luck
+
+##Watch This Space!
+
+Coming soon...
+
+Coming online during the show is a door sensor that will detect height of people entering and take a photo.  Also request a picture from the door sensor
+
+A bank of 10 Philips Hue lights that you can control through the same interfaces as above
 
 ## Onsite Support
 
