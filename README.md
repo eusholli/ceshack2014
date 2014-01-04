@@ -31,8 +31,8 @@ If you select one of the devices then you can take a picture and control the att
 To learn how to read the data and control the devices yourselves please see here - http://socketio.ceshack2014.att.io/instructions/
 
 The data is also streamed live into http://m2x.att.com
-* User: unity.enterprise01@gmail.com
-* Password: ceshack2014
+
+* All device feeds will be listed here
 
 # $10,000 Prize
 
