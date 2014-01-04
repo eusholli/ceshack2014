@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)http://getbootstrap.com/examples/sticky-footer-navbar/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <title>JS Client</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer-navbar.css" rel="stylesheet">    
+    <link href="css/m2m.css" rel="stylesheet">
+    <link href="prettify/prettify.css" rel="stylesheet" />
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body onload="prettyPrint()">
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://socketio.ceshack2014.att.io/instructions/#">M2M Hack</a>
+                </div> <!-- navbar-header-->
+    
+    
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">    
+                        <li><a href="/instructions/index.html">Unity</a></li>
+                        <li class="active"><a href="/instructions/javascript.html">JS client</a></li>
+                        <li><a href="/instructions/python.html">Python client</a></li>                    
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--CONtainer -->
+        </div> <!-- navbar -->
+    
+     
+         <div class="container">
+            <!-- Begin page content -->
+            <div class="demo-headline">
+                <h1 class="demo-logo">
+                    <div class="logo"></div>
+                    M2M Hack
+                </h1>
+            </div> <!-- /demo-headline -->
+          
+            <div id="unity" class="page-header">
+              <h1>Setup</h1>
+            </div>
+            <p class="lead">To use the sensors please use the following Javascript library:</p>
+            <pre class="prettyprint lang-html">&lt;script src="http://socketio.ceshack2014.att.io:3000/socket.io/socket.io.js"&gt;&lt;/script></pre>
+        
+            <h3>Basic Template</h3>
+            <p class="lead">Start with this basic HTML template.</p> This HTML code will give you the list of available sensor devices.
+            <pre class="prettyprint lang-html">
+&lt;!DOCTYPE html>
+&lt;html>
+  &lt;head>
+    &lt;title>M2M Hack Template&lt;/title>
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+  &lt;/head>
+  &lt;body>
+    &lt;h1>Hello, world!&lt;/h1>
+
+    &lt;!-- jQuery (optional) -->
+    &lt;script src="https://code.jquery.com/jquery.js">&lt;/script>
+    &lt;script src="http://socketio.ceshack2014.att.io:3000/socket.io/socket.io.js"&gt;&lt;/script>
+    
+    &lt;script&gt;
+        $(window).load(function() {
+            //connect to unity    
+            socket = io.connect("http://socketio.ceshack2014.att.io:3000");
+              	
+            //request for a list of device ('presence' event will be triggered for all available devices)
+            socket.emit("devicelist", "");
+            
+            //connect to the device through unity
+            //get some reading from the sensor device
+            device = {};
+            device.topic = "ceshack-pi01.ceshack.unity.tfoundry.com/readings";
+            socket.emit("subscribe", device);	  
+            	
+            //event on a device presence state
+            socket.on('presence', function(device) {
+                console.log("Device name is : " + device.name);
+                if (device.state == "1") {
+                	console.log("Device status is online");
+                }
+                else {
+                	console.log("Device status is ofline");        	  	
+                }
+            });      	
+        });                      
+    &lt;/script>
+    
+  &lt;/body>
+&lt;/html> 
+               
+            </pre>     
+            
+            <div id="sensordevices" class="page-header">
+                <h1>Sensor devices</h1>
+            </div>
+            
+            <p class="lead">You can request the list of all sensor devices by calling <code>socket.emit('devicelist', '')</code>. The list of sensors will be available by listening to the socket.io event <code>'presence'</code>.</p>
+            
+            <pre class="prettyprint lang-js">
+socket.emit('devicelist', '');
+
+socket.on('presence', function(mydata) {
+    var device_name = mydata.name;
+    //is the device online or offline?
+    var device_state = mydate.state;
+    //...    
+});            
+            </pre>
+            
+            
+            <h3>Device names</h3>
+            <ul>
+            <li class="lead">To get info from the door sensor, use device name <code>ceshack-pir.ceshack.unity.tfoundry.com</code>.</li>
+            <li class="lead">To control the Hue light bulbs, use device name <code>hueproxy.ceshack.unity.tfoundry.com</code>.</li>
+            <li class="lead">To use all the other sensors, use devices from <code>pi01.ceshack.unity.tfoundry.com</code> to <code>pi07.ceshack.unity.tfoundry.com</code>.</li>
+            </ul>
+            
+            
+            <h3>Subscribe to a particular sensor</h3>
+            <p class="lead">To read data and presence from a particular sensor, you need to subscribe to its reading topic by calling <code>socket.emit('subscribe', device)</code>. The sensors data from all subscribed devices can be retrieved by listening to the event <code>'devicedata'</code>.</p>
+            <pre class="prettyprint lang-js">
+//Define the device for data reading
+var device = {}; //device structure
+device.topic = "ceshack-pi01.ceshack.unity.tfoundry.com/readings";
+socket.emit("subscribe", device);	              
+
+
+//read the presence of the device
+socket.on('presence', function(mydata) {
+    //is the device online or offline?
+    if (mydata.name == 'devices/sensor/ceshack-pi01.ceshack.unity.tfoundry.com') {
+        if (mydata.state == "1") {
+            //The device went online
+        }
+        else if (mydata.state == "0") {
+            //The device went offline	    
+        }    }
+    //...    
+});  
+
+//read the sensors data from the subscribed devices
+socket.on('devicedata', function(sensordata) {
+   var jsondata = JSON.parse(sensordata);
+   var topic = jsondata.topic;
+   var payload = jsondata.payload;    
+   
+   //reading the sensor data
+   var timestamp = jsondata.timestamp;
+   var sensor_type = jsondata.sensor_type;
+   
+   //read he humidity level
+   if (sensor_type == "dht22") {
+       console.log("The humidity is at " + jsondata.humidity + "%");
+   }
+}
+	                      
+            </pre>
+            
+            
+            
+            <h3>Sensor action request</h3>
+            
+            <p class="lead">To perform an action request to a sensor device, specify <code>socket.emit('action_request', request)</code> with the <code>request</code> information that defines the action. The callback of the action is <code>'actionresponse'</code></p>
+                        
+            <pre class="prettyprint lang-js">
+var request = {};
+request.device_name = "ceshack-pi01.ceshack.unity.tfoundry.com";
+request.component = 'fan';
+request.action = "on";
+socket.emit('action_request', request);                    
+
+socket.on('actionresponse', function(devicedata) {
+    var jsondata = JSON.parse(devicedata);
+}
+	        </pre>                                 
+        
+           <div id="sensorlist" class="page-header">
+                <h1>List of sensors</h1>
+            </div>
+            
+        
+            <h3>Readable sensors</h3>
+            <p class="lead">All the sensors data below can be read from devices whose name is between <code>pi01.ceshack.unity.tfoundry.com</code>  and <code>pi07.ceshack.unity.tfoundry.com</code>.
+            <br/>
+            <strong>*</strong> Only exception goes to the "door sensor". Door sensor data must be read from device <code>ceshack-pir.ceshack.unity.tfoundry.com</code>
+            </p>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Sensor types</div>                        
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                        <th>Sensor</th><th>Sensor code</th><th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Accelerometer</td><td>lsm303</td><td>Gives the xyz vector of the acceleration.</td>
+                        </tr>
+                        <tr>
+                            <td>Alcohol</td><td>gas</td><td>Gives the alcohol level in PPM</td>
+                        </tr>                                    
+                        <tr>
+                            <td>Altitude</td><td>bmp085</td><td></td>
+                        </tr>                                    
+                        <tr>
+                            <td>Carbon Monoxyde</td><td>gas</td><td>Gives the CO-gas concentration in PPM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>*</strong> Door</td><td>door-sensor</td><td>Gives the url of the picture of the person who walked through the door.</td>
+                        </tr>
+                        <tr>
+                            <td>Humidity</td><td>dht22</td><td>Gives the percentage of humidity (%)</td>
+                        </tr>
+                        <tr>
+                            <td>Light</td><td>tsl2561</td><td>Gives the light emittance in LUX</td>
+                        </tr>
+                        <tr>
+                            <td>Magnetometer</td><td>lsm303</td><td>Gives the xyz coordinates of the magnetic field.</td>
+                        </tr>
+                        <tr>
+                            <td>Pressure</td><td>bmp085</td><td></td>
+                        </tr>                                    
+                        <tr>
+                            <td>Temperature</td><td>dht22</td><td>Gives the temperature in in Fahrenheit</td>
+                        </tr>                                    
+                    </tbody>
+                </table>
+            </div> <!-- panel -->
+            
+            
+            
+            <h3>Controllable sensors</h3> 
+            <!-- FAN -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Fan</h4></div> 
+                <div class="panel-body"><strong>Description:</strong> Turn on/off the fan</div>
+                
+                <div class="well">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h3 class="panel-title">request parameters</h3></div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class="list-group-item"> 
+                                    <p><small><strong>component:</strong> 'fan'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item"> 
+                                    <p><small><strong>device_name:</strong> <i>device name</i></small></p>
+                                    <p><small>Pick a device between 'ceshack-pi01.ceshack.unity.tfoundry.com' and 'ceshack-pi07.ceshack.unity.tfoundry.com'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>action:</strong> 'on'/'off'</small></p>
+                                    <small>
+                                    <ul>
+                                        <li>on: turn on the fan</li>
+                                        <li>off: turn off the fan</li>
+                                    </ul>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- CAMERA -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Camera</h4></div> 
+                <div class="panel-body"><strong>Description:</strong> Take a picture with the camera</div>
+                
+                <div class="well">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h3 class="panel-title">request parameters</h3></div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class="list-group-item"> 
+                                    <p><small><strong>component:</strong> 'camera'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item"> 
+                                    <p><small><strong>device_name:</strong> <i>device name</i></small></p>
+                                    <p><small>Pick a device between 'ceshack-pi01.ceshack.unity.tfoundry.com' and 'ceshack-pi07.ceshack.unity.tfoundry.com'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>action:</strong> 'take_picture'</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HUE LIGHT BULB -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Hue Light Bulb</h4></div> 
+                <div class="panel-body"><strong>Description:</strong> Turn on/off the Hue light bulb</div>
+                
+                <div class="well">
+                    <div class="panel panel-info">
+                        <div class="panel-heading"><h3 class="panel-title">request parameters</h3></div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class="list-group-item"> 
+                                    <p><small><strong>component:</strong> 'hue'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item"> 
+                                    <p><small><strong>device_name:</strong> 'hueproxy.ceshack.unity.tfoundry.com'</small></p>
+                                </div>
+                                
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>action:</strong> 'state'</small></p>
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>on:</strong> 'true'/'false'</small></p>
+                                    <small>
+                                    <ul>
+                                        <li>true: turn on the hue light</li>
+                                        <li>false: turn off the hue light</li>
+                                    </ul>
+                                    </small>                                                
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>bulb_id:</strong> '1'...'10'</small></p>
+                                    <p><small>There are 10 bulbs, so the id will be between '1' and '10'.</small></p>
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>bri:</strong> 0...255</small></p>
+                                    <p><small>Brightness of the light. This is a scale from the minimum brightness the light is capable of, 0, to the maximum capable brightness, 255. Note a brightness of 0 is not off.</small></p>
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>sat:</strong> 0...255</small></p>
+                                    <p><small>Saturation of the light. 255 is the most saturated (colored) and 0 is the least saturated (white).</small></p>
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>hue:</strong> 0...65535</small></p>
+                                    <p><small>Hue of the light. This is a wrapping value between 0 and 65535. Both 0 and 65535 are red, 25500 is green and 46920 is blue.</small></p>
+                                </div>
+                                <div class="list-group-item">                                                 
+                                    <p><small><strong>effect:</strong> 'none'/'colorloop'</small></p>
+                                    <p><small>The dynamic effect of the light, can either be “none” or “colorloop”. 
+                                    
+                                    If set to colorloop, the light will cycle through all hues using the current brightness and saturation settings.</small></p>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                     
+            
+            
+                
+        </div><!--container -->
+    
+    </div><!-- WRAP -->        
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">M2M Hack</p>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="prettify/prettify.js"></script>
+  
+
+</body></html>

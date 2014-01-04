@@ -1,0 +1,17 @@
+{
+  "name": "unity-webapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "dependencies": {
+    "express": "3.x.x",
+    "request": "~2.12.0",
+    "socket.io": "~0.9.16"
+  }
+}

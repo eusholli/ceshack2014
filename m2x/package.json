@@ -1,0 +1,13 @@
+{
+  "description": "Unity MQTT to M2X bridge",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "m2x": "",
+    "mqtt": ""
+  },
+  "author": "Geoff Hollingworth",
+  "homepage": "http://m2x.att.com",
+  "name": "unity-m2x-bridge",
+  "engine": "node 0.10.18"
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Unity MQTT to Socket.io client bridge",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "socket.io": "",
+    "express": "",
+    "mqtt": "",
+    "http-get":""
+  },
+  "author": "Jacob Thomas, Geoff Hollingworth",
+  "homepage": "http://slyfox.tfoundry.com",
+  "name": "unity-bridge",
+  "engine": "node 0.10.18"
+}
