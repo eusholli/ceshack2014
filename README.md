@@ -25,12 +25,12 @@ To learn how to read the data and control the devices yourselves please see here
 The data is also streamed live into http://m2x.att.com
 
 * ceshack-pi01 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 21fc5d75c9fe714e3c79d22220c4beae"
-* ceshack-pi02 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: b9b1b404cc33f5352bfc77292764d5f9"
-* ceshack-pi03 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 1c471b31791f583eafb72f04bc60c184"
-* ceshack-pi04 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: fa18f4dca84dff4d3078c6fb4943e2fa"
-* ceshack-pi05 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: a7a85c1f687706647cb9d20406ae7578"
-* ceshack-pi06 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: 948df13f64cdd58ad02b409f52628fd9"
-* ceshack-pi07 - curl -i http://api-m2x.att.com/v1/feeds/54ced6e4e0788f41168eb167b16b8d8a -H "X-M2X-KEY: fb0524aab9728637873e1356f3e6040d"
+* ceshack-pi02 - curl -i http://api-m2x.att.com/v1/feeds/80e79d294233359b1a8ebc969735a82f -H "X-M2X-KEY: b9b1b404cc33f5352bfc77292764d5f9"
+* ceshack-pi03 - curl -i http://api-m2x.att.com/v1/feeds/459cb7b4d388fac70b926e23d4cc51db -H "X-M2X-KEY: 1c471b31791f583eafb72f04bc60c184"
+* ceshack-pi04 - curl -i http://api-m2x.att.com/v1/feeds/6a3fab1850ab258ab8b15d82ee10f3ab -H "X-M2X-KEY: fa18f4dca84dff4d3078c6fb4943e2fa"
+* ceshack-pi05 - curl -i http://api-m2x.att.com/v1/feeds/4ab4d9a315ea74cca41d9ecb34acc94b -H "X-M2X-KEY: a7a85c1f687706647cb9d20406ae7578"
+* ceshack-pi06 - curl -i http://api-m2x.att.com/v1/feeds/28d0ed6a2e50477bfe309d4c9dbb5925 -H "X-M2X-KEY: 948df13f64cdd58ad02b409f52628fd9"
+* ceshack-pi07 - curl -i http://api-m2x.att.com/v1/feeds/a4340c8e78f62af36a36fe9a9ec47f26 -H "X-M2X-KEY: fb0524aab9728637873e1356f3e6040d"
 
 
 # $10,000 Prize
